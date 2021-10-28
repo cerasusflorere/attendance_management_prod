@@ -1,0 +1,380 @@
+/* this file is loaded by index.html and styles the page */
+
+* {
+    box-sizing: border-box;
+  }
+  
+  * {
+    font-family: 'メイリオ' ,Meiryo, 'ヒラギノ角ゴ Pro W3' , 'Hiragino Kaku Gothic Pro' , 'ＭＳ Ｐゴシック' , 'Osaka' ,sans-serif;
+    color: #666666;
+  }
+  
+  html, body {
+    background-color: #FFF;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+  }
+  
+  h1 {
+    font-size: 3.125em;
+  }
+  /*
+  form {
+    background-color: #eee;
+    display: grid;
+    grid-gap: 1em;
+    padding: 1em;
+    max-width: 40ch;
+  }
+  input {
+    border: 1px solid silver;
+    display: block;
+    font-size: 16px;
+    margin-bottom: 10px;
+    padding: 5px;
+    width: 100%;
+  }
+  form button {
+    background-color: #bbbbf2;
+    border: 2px solid currentColor;
+    border-radius: .25em;
+    cursor: pointer;
+    font-size: inherit;
+    line-height: 1.4em;
+    padding: 0.25em 1em;
+    max-width: 20ch;
+  }
+  form button:hover {
+    background-color: lavender;
+  }
+  */
+  
+  footer {
+    margin-top: 3em;
+    padding-top: 1.5em;
+    border-top: 1px solid lightgrey;
+  }
+
+  /* ホーム画面 */
+.login-area{
+    display: flex;
+    position: relative;
+    width: 100%;
+    height: 100%;
+    align-items: center;
+  }
+  .login-page {
+    position: relative;
+    width: 22.5em;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;  
+  }
+  .login-form {
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    max-width: 22.5em;
+    padding: 1.5625em;
+    text-align: center;
+    background: #FFFFFF;  
+    box-shadow: 0 0 1.25em 0 rgba(0, 0, 0, 0.2), 0 0.3125em 0.3125em 0 rgba(0, 0, 0, 0.24);
+  }
+  .login-title{
+      margin: 0.5em;
+  }
+  .login-botton-area{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+  }
+  .login-button{
+    display: flex;
+    justify-content: center;
+    align-items: baseline;
+    position: relative;
+    width: 5.5em;
+    padding: 0.7em 1em;
+    margin: 1em;
+    background: #fff;
+    border: 1px solid #666666;
+    box-sizing: border-box;    
+    text-decoration: none;    
+    transition-duration: 0.2s;
+    cursor: pointer;
+  }
+  .management-page-button{
+    margin-left: 0;
+  }
+  .login-button:active{
+    -webkit-transform: translateY(0.25em);
+    transform: translateY(0.25em);/*下に動く*/
+    border-bottom: none;/*線を消す*/
+  }
+  
+
+  /* 来校情報登録画面 */
+  .register-main-area{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+  }
+  .success-message-area{
+    display: flex;
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    justify-content: center;
+    align-items: center;
+  }
+  form{
+    width: 100%;
+  }
+  .answers-each-area{
+    display: block;
+    width: 30em;
+    padding: 0.625em 0.9375em;
+    margin: 1.25em;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 0.625em;
+    border: 1px solid #666666;
+  }
+  .finish-message-area{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .success-message{
+    padding-top: 1.3em;
+  }
+  /* 各種チェックボタンたち */
+  .attendance-check{
+    display: none;
+  }
+  .attendance-label{
+    box-sizing: border-box;
+    cursor: pointer;
+    display: inline-block;
+    padding: 0.3em 2em;
+    position: relative;
+    width: auto;
+  }
+  .attendance-label::before{
+    background: #fff;
+    border: 1px solid #666666;
+    content: '';
+    height: 1em;
+    left: 0.5em;
+    margin-top: -0.65em;
+    position: absolute;
+    top: 50%;
+    width: 1em;
+  }
+  .attendance-label::after{
+    border-right: 0.2em solid #666666;
+    border-bottom: 0.2em solid #666666;
+    content: '';
+    height: 0.6em;
+    left: 0.8em;
+    margin-top: -0.6em;
+    opacity: 0;
+    position: absolute;
+    top: 50%;
+    transform: rotate(45deg);
+    width: 0.3em;
+  }
+  .attendance-check:checked + .attendance-label::after{
+    opacity: 1;
+  }
+  /* 送信ボタン */
+  .login-button-area{
+    display: flex;
+    align-items: center;
+  }
+  .submit-button{
+    display: flex;
+    justify-content: center;
+    align-items: baseline;
+    position: relative;
+    width: 5.5em;
+    padding: 0.8em 2em;
+    line-height: 1em;
+    margin: 1em;
+    margin-left: auto;
+    margin-right: auto;
+    background: #fff;
+    border: 1px solid #666666;
+    box-sizing: border-box;    
+    text-decoration: none;    
+    transition-duration: 0.2s;
+    cursor: pointer;
+  }
+  .submit-button:active{
+    -webkit-transform: translateY(0.25em);
+    transform: translateY(0.25em);/*下に動く*/
+    border-bottom: none;/*線を消す*/
+  }
+  /* ホームへ戻るボタン */
+  .home-botton-area{
+    display: flex;
+    justify-content: center;
+    margin-top: 1em;
+  }
+  .home{
+    width: 9em;
+  }
+  /* エラーメッセージ */
+  .error-message{
+    margin-top: 1em;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+
+  /* ダウンロードページ */
+  .log-page-area{
+    margin: 1em;
+  }
+  /*ダウンロードボタン */
+  .download-button-area{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+  }
+  .download-button{
+    display: flex;
+    justify-content: center;
+    align-items: baseline;
+    position: relative;
+    padding: 0.7em 1.4em;
+    margin: 1em;
+    margin-left: 0;
+    background: #fff;
+    border: 1px solid #666666;
+    box-sizing: border-box;    
+    text-decoration: none;    
+    transition-duration: 0.2s;
+    cursor: pointer;
+  }
+  .download-button:active{
+    -webkit-transform: translateY(0.25em);
+    transform: translateY(0.25em);/*下に動く*/
+    border-bottom: none;/*線を消す*/
+  }
+  /* テーブル */
+  .log-area{
+    width: 127em;
+  }
+  table {
+    text-align: center;
+  }
+  thead th,
+  .fixed{
+    position: sticky;
+  }
+  thead th{
+    z-index: 1;
+  }
+  thead tr:nth-child(1) th {
+    top: 0;
+  }
+  thead tr:nth-child(2) th {
+    top: 1.5rem; /* 2行目は1行目の高さの位置に固定する */
+  }
+  th::before,
+  .fixed::before{
+    content: "";
+    position: absolute;
+    top: -1px;
+    left: -1px;
+    width: 100%;
+    height: 100%;
+    border: 1.5px solid #ccc;
+  }
+  .name-date,
+  .table-date, 
+  .table-name{
+    /* ヘッダー行内の他のセルより手前に表示する */
+    z-index: 2;
+  }
+  thead tr:nth-child(1) th::before{
+    border-top-color: black;
+  }
+  thead tr:nth-child(2) th::before {
+    border-bottom-width: 3.0px;
+  }
+  .right-white::before{
+    border-right-color: white;
+  }
+  .left-white::before{
+    border-left-color: white;
+  }
+  .bottom::before{
+    border-bottom-color: black;
+  }
+  .left::before{
+    border-left-color: black;
+  }
+  .right::before{
+    border-right-color: black;
+  }
+  .fixed-date{
+    left: 0;
+  }
+  .fixed-name{
+    left: 8em;
+  }
+  .table-date{
+    width: 8em;
+  }
+  .table-name{
+    width: 12em;
+  }
+  .table-health{
+    width: 8em;
+  }
+  .table-time{
+    width: 8em;
+  }
+  .table-cell{
+    width: 5.5em;
+  }
+  .table-other{
+    width: 8em;
+  }
+  .white{
+    background: white;
+  }
+  .red{
+    color: red;
+  }
+  .green{
+    background: #99cc99;
+  }
+  .blue{
+    background: #99cccc;
+  }
+
+
+  /* 695px以下に適用されるCSS（スマホ用） */
+  @media screen and (max-width: 695px) {
+    /* ホーム画面 */
+    .login-page {
+      width: 85%;
+    }
+    .login-title{
+      font-size: 1em;
+    }
+
+    /* 来校情報登録画面 */
+    .answers-each-area {
+      width: 80%;
+    }
+  }
