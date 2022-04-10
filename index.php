@@ -9,6 +9,16 @@
     <title>Home</title>
 </head>
 
+<?php
+    function h($str)
+    {
+        return htmlspecialchars($str, ENT_QUOTES, 'UTF-8');
+    }
+
+    $password = 'password';
+    $param_json = json_encode($password); //JSONエンコード
+?>
+
 <body>
     <div class='login-area'>
         <div class='login-page'>
@@ -17,11 +27,41 @@
                 <div class='login-botton-area'>
                     <a class='login-button' href='management.php'><i class="fas fa-eye fa-fw"></i>閲覧</a>
                     <a class='login-button' href='attendance.php'><i class="fas fa-pen-square fa-fw"></i>登録</a>
+                    <label class='login-button' for='setting_pass'><i class="fas far fa-cog fa-fw"></i>設定</label>
+                    <!-- モーダルウィンドウ -->
+                    <input type='checkbox' id='setting_pass'/>
+                    <label class='overlay' for='setting_pass'>
+                        <div class='window'>
+                            <label class='close' for='setting_pass'>×</label>
+                            <p class='text'>                                
+                                <p class='setting-pass-explanation'>パスワードを入力してください</p>
+                                <div class='setting-pass-explanation' id='comment'></div>    <!-- パスワード間違い表示 -->
+                                <input class='passward-box' type='password' id='password' placeholder='passward' value=''/>
+                                <p><input type='button' class='submit-button' name='check_password' value='OK' onclick='checkPass()'></p>                                
+                            </p>
+                        </div>
+                    </label>
                 </div>                
             </div>
-        </div>
-        
+        </div>        
     </div>
- 
+    
+<script>
+    var correct_pass = '<?php echo $password; ?>'; //JSONデコード
+    const commentArea = document.getElementById('comment');
+
+    function checkPass(){
+        let enter_password = document.getElementById('password').value;
+        if(enter_password == correct_pass){
+            window.location.href = 'setting.php';
+        }else{
+            commentArea.innerHTML = '';
+        
+            const commentDiv = document.createElement('div');
+            commentDiv.innerText = 'パスワードが間違っています';
+            commentArea.appendChild(commentDiv);
+        }
+    }
+</script>
 </body>
 </html>
