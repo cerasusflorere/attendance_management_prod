@@ -10,13 +10,34 @@
 </head>
 
 <?php
+    session_start();
     function h($str)
     {
         return htmlspecialchars($str, ENT_QUOTES, 'UTF-8');
     }
 
+    // 成功・エラーメッセージの初期化
+    $errors = array();
+
+    // envファイル使用のため
+    require '../vendor/autoload.php';
+    // .envを使用する
+    Dotenv\Dotenv::createImmutable(__DIR__)->load();
+    // .envファイルで定義したHOST等を変数に代入
+    $SETTING_PASS = $_ENV["SETTING_PASS"];
+
     $password = 'password';
     $param_json = json_encode($password); //JSONエンコード
+
+    if(isset($_POST['check_password'])){
+        $input_pass = isset($_POST['password']) ? $_POST['password'] : NULL;
+        if($input_pass == $SETTING_PASS){
+            header("Location:setting.php");
+        }else{
+            $errors['miss'] = 'パスワードが間違っています。';
+
+        }
+    }
 ?>
 
 <body>
@@ -29,15 +50,21 @@
                     <a class='login-button' href='attendance.php'><i class="fas fa-pen-square fa-fw"></i>登録</a>
                     <label class='login-button' for='setting_pass'><i class="fas far fa-cog fa-fw"></i>設定</label>
                     <!-- モーダルウィンドウ -->
-                    <input type='checkbox' id='setting_pass'/>
+                    <input type='checkbox' id='setting_pass' <?php if(count($errors) != 0 && isset($_POST['check_password'])){ echo 'checked'; } ?>/>
                     <label class='overlay' for='setting_pass'>
                         <div class='window'>
                             <label class='close' for='setting_pass'>×</label>
                             <p class='text'>                                
                                 <p class='setting-pass-explanation'>パスワードを入力してください</p>
-                                <div class='setting-pass-explanation' id='comment'></div>    <!-- パスワード間違い表示 -->
-                                <input class='passward-box' type='password' id='password' placeholder='passward' value=''/>
-                                <p><input type='button' class='submit-button' name='check_password' value='OK' onclick='checkPass()'></p>                                
+                                <?php if(count($errors) != 0 && isset($_POST['check_password'])): ?>
+                                    <div class='setting-pass-explanation'>
+                                        <?=h($errors['miss']);?>
+                                    </div>
+                                <?php endif; ?>
+                                <form action='' method='post'>
+                                    <input class='passward-box' type='password' id='password' name='password' placeholder='passward' value=''/>
+                                    <p><input type='submit' class='submit-button' name='check_password' value='OK'></p>
+                                </form>                                                    
                             </p>
                         </div>
                     </label>
@@ -45,23 +72,5 @@
             </div>
         </div>        
     </div>
-    
-<script>
-    var correct_pass = '<?php echo $password; ?>'; //JSONデコード
-    const commentArea = document.getElementById('comment');
-
-    function checkPass(){
-        let enter_password = document.getElementById('password').value;
-        if(enter_password == correct_pass){
-            window.location.href = 'setting.php';
-        }else{
-            commentArea.innerHTML = '';
-        
-            const commentDiv = document.createElement('div');
-            commentDiv.innerText = 'パスワードが間違っています';
-            commentArea.appendChild(commentDiv);
-        }
-    }
-</script>
 </body>
 </html>
