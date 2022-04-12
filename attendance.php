@@ -16,7 +16,17 @@
         return htmlspecialchars($str, ENT_QUOTES, 'UTF-8');
     }
 
-    $mysqli = new mysqli('***', '***', '***', '***');
+    // envファイル使用のため
+    require '../vendor/autoload.php';
+    // .envを使用する
+    Dotenv\Dotenv::createImmutable(__DIR__)->load();
+    // .envファイルで定義したHOST等を変数に代入
+    $HOST = $_ENV["HOST"];
+    $USER = $_ENV["USER"];
+    $PASS = $_ENV["PASS"];
+    $DB = $_ENV["DB"];  
+
+    $mysqli = new mysqli($HOST, $USER, $PASS, $DB);
     if($mysqli->connect_error){
         echo $mysqli->connect_error;
         exit();
@@ -82,7 +92,7 @@
             if($name == ''){
                 $errors['name'] = '名前が入力されていません';
             }
-            if($date == '2021-10-01'){
+            if($date == '2021-10-01' || $date == ''){
                 $errors['date'] = '日付が入力されていません';
             }
             if($arrival_time == ''){
@@ -412,12 +422,14 @@
                 setMaster2();
             }else if(changePosition == 'M1'){
                 setMaster1();
-            }else if(changePosition == 'B4'){
+            }else if(changePosition == 'B'){
                 setBachelor();
             }else if(changePosition == '研究生'){
                 setResearcher();
             }else if(changePosition == '共同研究員'){
                 setCollab();
+            }else if(changePosition == '過去メンバー'){
+                setFormer();
             }else{
                 select_name.innerHTML ='';
                 var option = document.createElement('option');
@@ -548,7 +560,7 @@
             });
         }
 
-        // B4が選択されたとき
+        // Bが選択されたとき
         function setBachelor(){
             // 名前の選択肢を空にする
             select_name.textContent = null;
@@ -557,7 +569,7 @@
             let names = [];
             let number = 0;
             for(let i in names_positions){
-                if(names_positions[i] == 'B4'){
+                if(names_positions[i] == 'B'){
                     names[number] = names_positions[i-1];
                     number++;
                 }
@@ -620,7 +632,29 @@
             });
         }
 
-        
+        // 過去メンバーが選択されたとき
+        function setFormer(){
+            // 名前の選択肢を空にする
+            select_name.textContent = null;
+            
+            // セットする
+            let names = [];
+            let number = 0;
+            for(let i in names_positions){
+                if(names_positions[i] == '過去メンバー'){
+                    names[number] = names_positions[i-1];
+                    number++;
+                }
+            }
+
+            names.forEach((name) => {
+                var nameOption = document.createElement('option');
+                nameOption.value = name;
+                nameOption.text = name;
+                
+                select_name.appendChild(nameOption);
+            });
+        }        
     </script>
 </body>
 </html>   
