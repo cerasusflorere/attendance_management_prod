@@ -15,7 +15,17 @@
         return htmlspecialchars($str, ENT_QUOTES, 'UTF-8');
     }
 
-    $mysqli = new mysqli('***', '***', '***', '***');
+    // envファイル使用のため
+    require '../vendor/autoload.php';
+    // .envを使用する
+    Dotenv\Dotenv::createImmutable(__DIR__)->load();
+    // .envファイルで定義したHOST等を変数に代入
+    $HOST = $_ENV["HOST"];
+    $USER = $_ENV["USER"];
+    $PASS = $_ENV["PASS"];
+    $DB = $_ENV["DB"];  
+
+    $mysqli = new mysqli($HOST, $USER, $PASS, $DB);
     if($mysqli->connect_error){
         echo $mysqli->connect_error;
         exit();
@@ -152,7 +162,7 @@
         <label class='tab_item newcomer_tab' for='newcomer'>メンバー追加</label>
 
         <div class='setting-page-login-button-area'>
-            <a class='login-button home management-page-button setting-page-login-botton' href='login.php'><i class="fas fa-home fa-fw"></i>ホーム</a>
+            <a class='login-button home management-page-button setting-page-login-botton' href='index.php'><i class="fas fa-home fa-fw"></i>ホーム</a>
         </div>
                         
         <!-- タブ中身 -->
